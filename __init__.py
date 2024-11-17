@@ -11,8 +11,8 @@ from calibre.customize import EditBookToolPlugin
 class DemoPlugin(EditBookToolPlugin):
 
     name = 'EpubCheck'
-    version = (0, 2, 5)
+    version = (0, 3, 0)
     author = 'Doitsu'
     supported_platforms = ['windows', 'osx', 'linux']
-    description = 'A simple EpubCheck 4.2.6 wrapper.'
+    description = 'A simple EpubCheck 5.1.0 wrapper.'
     minimum_calibre_version = (5, 13, 0)
