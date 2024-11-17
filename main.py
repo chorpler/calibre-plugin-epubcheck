@@ -462,9 +462,9 @@ class DemoTool(Tool):
                     if iswindows:
                         filename = os.path.basename(re.sub('C^', drive_letter, filename))
                         msg = msg.replace('C^', drive_letter.lower())
-                    elif isosx:
+                    # elif isosx:
                         # suggested by wrCisco
-                        filename = ".".join((filename.split('.')[-2], filename.split('.')[-1]))
+                        # filename = ".".join((filename.split('.')[-2], filename.split('.')[-1]))
                     else:
                         # Linux
                         filename = os.path.basename(filename)
