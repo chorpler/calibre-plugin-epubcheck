@@ -13,8 +13,8 @@ from datetime import datetime, timedelta
 
 # Qt
 from qt.core import (
-    QTextEdit, QDockWidget, QApplication, QAction, 
-    QFileDialog, QMessageBox, QDialog, QListWidget, QVBoxLayout, 
+    QTextEdit, QDockWidget, QApplication, QAction,
+    QFileDialog, QMessageBox, QDialog, QListWidget, QVBoxLayout,
     QListWidgetItem, QDialogButtonBox, Qt, QEventLoop, QBrush, QColor
 )
 
@@ -58,7 +58,7 @@ def get_epc_version(epc_path):
                 if project_version is not None:
                     version = 'v' + project_version.text
         else:
-            print('pom.xml not found!') 
+            print('pom.xml not found!')
     else:
         print('epubcheck.jar not found!')
 
@@ -69,7 +69,7 @@ def latest_epc_version(github_url):
     latest_version = ''
     browser_download_url = ''
     if is_connected():
-        # check for github updates 
+        # check for github updates
         response = urlopen(github_url).read().decode('utf-8')
         parsed_json = json.loads(response)
         latest_version = parsed_json[0]['tag_name']
@@ -206,7 +206,7 @@ class DemoTool(Tool):
         #--------------------------------------------------------------------
         # create a dictionary that maps names to relative hrefs
         #--------------------------------------------------------------------
-        epub_mime_map = self.current_container.mime_map 
+        epub_mime_map = self.current_container.mime_map
         epub_name_to_href = {}
         for href in epub_mime_map:
             epub_name_to_href[os.path.basename(href)] = href
@@ -253,7 +253,7 @@ class DemoTool(Tool):
                         epc_version = get_epc_version(epc_path)
                         print('epc_version', epc_version)
 
-                        # get latest version and browser download url 
+                        # get latest version and browser download url
                         latest_version, browser_download_url = latest_epc_version(github_url)
                         print('latest_version:', latest_version, 'browser_download_url:', browser_download_url)
 
@@ -355,7 +355,7 @@ class DemoTool(Tool):
             # double-check that the Java files were downloaded
             if epc_missing:
                 QMessageBox.critical(self.gui, "EPUBCheck Java files missing!", 'Please re-run the plugin while connected to the Internet.')
-                return 
+                return
 
             #-------------------------------------
             # assemble epubcheck parameters
@@ -435,7 +435,7 @@ class DemoTool(Tool):
                         # merge list items
                         err_list[2:len(err_list)] = [':'.join(err_list[2:len(err_list)])]
 
-                    # get error code e.g. FATAL(RSC-016) or ERROR(RSC-005) 
+                    # get error code e.g. FATAL(RSC-016) or ERROR(RSC-005)
                     err_code = err_list[0]
 
                     # get message
@@ -469,7 +469,7 @@ class DemoTool(Tool):
                         # Linux
                         filename = os.path.basename(filename)
 
-                    # get relative file path 
+                    # get relative file path
                     if filename in epub_name_to_href:
                         filepath = epub_name_to_href[filename]
                     else:
@@ -483,7 +483,7 @@ class DemoTool(Tool):
                         message += ' '
                     if colnumber:
                         message += ' Col: ' + colnumber + ' '
-                    message += err_code + ': ' +  msg 
+                    message += err_code + ': ' +  msg
 
                     #--------------------------------------------------------------------------------------------------------------
                     # save error information in list (filepath, line number, err_code, filename, error message)
