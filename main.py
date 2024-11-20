@@ -404,7 +404,9 @@ class DemoTool(Tool):
         #--------------------------------------------
         # process output
         #--------------------------------------------
-        if returncode != 0 or re.search('(INFO|USAGE|WARNING)\(.*?\)', stderr) is not None:
+        has_errors = re.search("(INFO|USAGE|WARNING|ERROR|FATAL)\(.*?\)", stderr)
+        # if returncode != 0 or re.search('(INFO|USAGE|WARNING)\(.*?\)', stderr) is not None:
+        if returncode != 0 or has_errors is not None:
             # copy to clipboard
             if clipboard_copy:
                 QApplication.clipboard().setText(stderr)
@@ -474,9 +476,16 @@ class DemoTool(Tool):
                         filepath = epub_name_to_href[filename]
                     else:
                         filepath = 'NA'
+                        # Check for relative path match
+                        for fn1 in epub_name_to_href:
+                            if fn1.endswith(filename) or filename.endswith(fn1):
+                                filepath = epub_name_to_href[fn1]
+                                break
 
                     # assemble error message
-                    message = os.path.basename(filepath)
+                    # message = os.path.basename(filepath)
+                    # need full relative file path (to support folders with identically named files)
+                    message = filepath
                     if linenumber:
                         message += ' Line: ' + linenumber
                     else:
